@@ -15,3 +15,9 @@ showImage(cleanedMedianIm);
 %%
 cleanedMeanIm = cleanImageMean(im,2,3);
 showImage(cleanedMeanIm);
+%%
+stdSpatial = 1;
+stdIntensity = 2;
+radius = 1;
+cleanedBifi = bilateralFilt(im,radius,stdSpatial,stdIntensity);
+showImage(cleanedBifi);
