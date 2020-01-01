@@ -47,8 +47,13 @@ shiftedIm = circshift(fruit,40);    %circular shift by 10
 shiftedFFT = fft2(shiftedIm);
 shiftedPower = sum(abs(shiftedFFT),'all');
 fprintf('diff power between original and shifted image:%f\n',origPower-shiftedPower);
-%%
-
+%%10 
+im = magic(9);
+% transpose has the same effect as rotation by 90 degrees.
+rotatedIm = im';
+FFTim = fft2(im);
+rotatedFFTim = FFTim';
+sum(fft2(rotatedIm) - rotatedFFTim,'all')
 
 
 
