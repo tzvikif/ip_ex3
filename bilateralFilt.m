@@ -20,10 +20,10 @@ function cleanIm = bilateralFilt (im,radius,stdSpatial,stdIntensity)
             photometricDist = ...
                 centerColor*ones(2*radius+1,2*radius+1)-bigIm(x-radius:x+radius,y-radius:y+radius);
             pW = exp(-(photometricDist).^2/(2*stdIntensity^2));
-            I = sW * pW' * bigIm(x-radius:x+radius,y-radius:y+radius);
-            normalizationFactor = sum(sW * pW','all');
+            I = sW .* pW .* bigIm(x-radius:x+radius,y-radius:y+radius);
+            normalizationFactor = sum(sW .* pW,'all');
             I = sum(I,'all')/normalizationFactor;
-            cleanIm(y,x) = I;
+            cleanIm(x,y) = I;
         end
     end
 end
