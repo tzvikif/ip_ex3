@@ -48,12 +48,14 @@ shiftedFFT = fft2(shiftedIm);
 shiftedPower = sum(abs(shiftedFFT),'all');
 fprintf('diff power between original and shifted image:%f\n',origPower-shiftedPower);
 %% 10 rotation by 90 degrees
-im = magic(9);
+im = magic(3);
 % transpose has the same effect as rotation by 90 degrees.
-rotatedIm = im';
+rotatedIm = im.';
 FFTim = fft2(im);
-rotatedFFTim = FFTim';
-sum(fft2(rotatedIm) - rotatedFFTim,'all')
+rotatedFFT = FFTim.';
+FFTonRotatedIm = fft2(rotatedIm);
+fprintf('diff between rotated FFT(rotated image) and rotated FFT(image):\n');
+disp(FFTonRotatedIm - rotatedFFT);
 
 
 
