@@ -6,19 +6,26 @@ showImage(im);
 imSPnoise = addSPnoise(im,300);
 showImage(imSPnoise);
 %%
-sigma = 10;
+sigma = 20;
 imGaussianNoise = addGaussianNoise(im,sigma);
 showImage(imGaussianNoise);
 %%
-cleanedMedianIm = cleanImageMedian(im,20);
+radius = 1
+cleanedMedianIm = cleanImageMedian(imSPnoise,radius);
 showImage(cleanedMedianIm);
 %%
-cleanedMeanIm = cleanImageMean(im,2,3);
+radius = 2;
+sigma = 2;
+cleanedMeanIm = cleanImageMean(imGaussianNoise,radius,sigma);
 showImage(cleanedMeanIm);
 %%
-stdSpatial = 2;
-stdIntensity = 4;
-radius = 2;
+%showImage(imGaussianNoise);
+stdSpatial = 5;
+stdIntensity = 20;
+radius = 5;
 cleanedBifi = bilateralFilt(imGaussianNoise,radius,stdSpatial,stdIntensity);
 showImage(cleanedBifi);
+%%
+showImage(imbilatfilt(imGaussianNoise));
+
 
