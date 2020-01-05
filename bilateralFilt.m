@@ -22,8 +22,8 @@ function cleanIm = bilateralFilt (im,radius,stdSpatial,stdIntensity)
             I = sW .* pW .* J;
             normalizationFactor = sum(sW .* pW,'all');
             I = sum(I,'all')/normalizationFactor;
-            cleanIm(x,y) = I;
+            cleanIm(x-radius,y-radius) = I;
         end
     end
-    cleanIm = cleanIm(radius+1:end,radius+1:end);
+    %cleanIm = cleanIm(radius+1:end,radius+1:end);
 end
