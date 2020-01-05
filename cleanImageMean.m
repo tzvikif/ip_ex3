@@ -10,5 +10,5 @@ function cleanIm = cleanImageMean (im, radius, maskSTD)
         end
     end
     spatialMask = spatialMask/sum(spatialMask,'all');    % preserve mean
-    cleanIm = conv2(im,spatialMask);
+    cleanIm = conv2(im,spatialMask,'same');
 end
