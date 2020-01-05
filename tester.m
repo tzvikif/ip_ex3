@@ -54,6 +54,8 @@ sigma = 40;
 imLowNoiseGaussian = addGaussianNoise(im,sigma);
 showImage(imLowNoiseGaussian);
 %% pre2 cleaning noisy S&P
+close all;
+showImage(imNoisySP);
 %1
 fprintf('clean noisy S&P with mean ...\n');
 cleanedNoisySP_mean = cleanImageMean(imNoisySP,5,4);
@@ -68,24 +70,58 @@ mypause;
 fprintf('clean noisy S&P with bilateral filtering ...\n');
 cleanedNoisySP_bifi = bilateralFilt(imNoisySP,6,5,200);
 showImage(cleanedNoisySP_bifi);
-%% pre2 cleaning noisy Gaussian
+%% pre2 cleaning low noise S&P
 close all;
+showImage(imLowNoiseSP);
 %4
-fprintf('clean low noise with mean ...\n');
+fprintf('clean low noise S&P with mean ...\n');
 cleanedLowNoiseSP_mean = cleanImageMean(imLowNoiseSP,3,2);
 showImage(cleanedLowNoiseSP_mean);
 mypause;
 %5
-fprintf('clean low noise with median ...\n');
+fprintf('clean low noise S&P with median ...\n');
 cleanedLowNoiseSP_median = cleanImageMedian(imLowNoiseSP,2);
 showImage(cleanedLowNoiseSP_median);
 mypause;
 %6 
-fprintf('clean low noise with bilateral filtering ...\n');
-cleanedLowNoiseSP_bifi = bilateralFilt(imLowNoiseSP,3,3,200);
+fprintf('clean low noise S&P with bilateral filtering ...\n');
+cleanedLowNoiseSP_bifi = bilateralFilt(imLowNoiseSP,4,5,200);
 showImage(cleanedLowNoiseSP_bifi);
-%% pre2
-
+%% pre2 cleaning noisy gaussian
+%7
+close all;
+showImage(imNoisyGaussian);
+fprintf('clean noisy gaussian with mean ...\n');
+cleanedNoisyGaussian_mean = cleanImageMean(imNoisyGaussian,5,4);
+showImage(cleanedNoisyGaussian_mean);
+mypause;
+%8
+fprintf('clean noisy gaussian with median ...\n');
+cleanedNoisyGaussian_median = cleanImageMedian(imNoisyGaussian,2);
+showImage(cleanedNoisyGaussian_median);
+mypause;
+%9 
+fprintf('clean noisy gaussian with bilateral filtering ...\n');
+cleanedNoisyGaussian_bifi = bilateralFilt(imNoisyGaussian,6,5,200);
+showImage(cleanedNoisyGaussian_bifi);
+%% pre2 cleaning low noise gaussian
+close all;
+showImage(imLowNoiseGaussian);
+%10
+fprintf('clean low noise gaussian with mean ...\n');
+cleanedLowNoiseGaussian_mean = cleanImageMean(imLowNoiseGaussian,3,2);
+showImage(cleanedLowNoiseGaussian_mean);
+mypause;
+%11
+fprintf('clean low noise gaussian with median ...\n');
+cleanedLowNoiseGaussian_median = cleanImageMedian(imLowNoiseGaussian,2);
+showImage(cleanedLowNoiseGaussian_median);
+mypause;
+%12
+fprintf('clean low noise gaussian with bilateral filtering ...\n');
+cleanedLowNoiseGaussian_bifi = bilateralFilt(imLowNoiseGaussian,4,5,200);
+showImage(cleanedLowNoiseGaussian_bifi);
+%% pre3
 
 
 
