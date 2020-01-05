@@ -24,16 +24,16 @@ FFTfruit = fft2(fruit);
 G = alpha*FFTlena+beta*FFTfruit;
 invG = ifft2(G);
 showImage(invG);
-fprintf('diff:%f\n',sum(g-invG,'all'));
+fprintf('Liniarity diff:%f\n',sum(g-invG,'all'));
 %% 7 Parseval Theroem
 N = size(lena,1);
 M = size(lena,2);
 % in image space
 dc = sum(lena.*lena,'all');
 DC = sum(abs(FFTlena.*FFTlena),'all')/(N*M);
-fprintf('diff:%f\n',sum(dc-DC,'all'));
+fprintf('Parseval diff:%f\n',sum(dc-DC,'all'));
 %% 8 cojugate-symmetric
-A = randi([1 50],1,2); 
+A = randi([1 50],1,2); %randomize u,v
 u = A(1);v=A(2);    %take any u,v
 shiftedLena = fftshift(FFTlena);
 c1 = shiftedLena(129+u,129+v);
