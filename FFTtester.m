@@ -1,3 +1,7 @@
+%{
+author: Tzvi Fisher 037580644
+        Daphna Kopel 209051036
+%}
 %% 5a
 im = readImage('stroller.tif');
 Fim = fft2(im);
@@ -38,8 +42,8 @@ u = A(1);v=A(2);    %take any u,v
 shiftedLena = fftshift(FFTlena);
 c1 = shiftedLena(129+u,129+v);
 c2 = shiftedLena(129-u,129-v);  %take F(-u,-v)
-fprintf('real: a1=%f is equal to a2=%f.\n imaginary: b1=%f is equal to -b2=%f\n',...
-    real(c1),real(c2),imag(c1),-imag(c2));
+fprintf('real: a1=%f is equal to a2=%f.\n imaginary: b1=%f is equal to b2=%f\n hence they are conjugate.',...
+    real(c1),real(c2),imag(c1),imag(c2));
 %% 9 shift preserves power spectrum
 %before shift
 origPower = sum(abs(FFTfruit),'all');

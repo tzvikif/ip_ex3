@@ -1,30 +1,8 @@
+%{
+author: Tzvi Fisher 037580644
+        Daphna Kopel 209051036
+%}
 clear;close all;
-
-im = readImage('stroller.tif');
-showImage(im);
-%%
-imSPnoise = addSPnoise(im,300);
-showImage(imSPnoise);
-%%
-sigma = 20;
-imGaussianNoise = addGaussianNoise(im,sigma);
-showImage(imGaussianNoise);
-%%
-radius = 1
-cleanedMedianIm = cleanImageMedian(imSPnoise,radius);
-showImage(cleanedMedianIm);
-%%
-radius = 2;
-sigma = 2;
-cleanedMeanIm = cleanImageMean(imGaussianNoise,radius,sigma);
-showImage(cleanedMeanIm);
-%%
-%showImage(imGaussianNoise);
-stdSpatial = 5;
-stdIntensity = 20;
-radius = 5;
-cleanedBifi = bilateralFilt(imGaussianNoise,radius,stdSpatial,stdIntensity);
-showImage(cleanedBifi);
 %% pre1 create noisy images
 clear;close all;
 fprintf('reading stroller.tif ...\n');
@@ -32,26 +10,26 @@ im = readImage('stroller.tif');
 showImage(im);
 mypause;
 fprintf('create noisy S&P image ...\n');
-
 imNoisySP = addSPnoise(im,15000);
+imwrite(cast(imNoisySP,'uint8'),'imNoisySP.tiff');
 showImage(imNoisySP);
 mypause;
 fprintf('create noisy gaussian image ...\n');
 sigma = 80;
 imNoisyGaussian = addGaussianNoise(im,sigma);
+imwrite(cast(imNoisyGaussian,'uint8'),'imNoisyGaussian.tiff');
 showImage(imNoisyGaussian);
 % pre1 create low noise image
-fprintf('reading stroller.tif ...\n');
-im = readImage('stroller.tif');
-showImage(im);
-mypause;
 fprintf('create low noise S&P image ...\n');
+mypause;
 imLowNoiseSP = addSPnoise(im,4000);
+imwrite(cast(imLowNoiseSP,'uint8'),'imLowNoiseSP.tiff');
 showImage(imLowNoiseSP);
 mypause;
 fprintf('create low noise gaussian image ...\n');
 sigma = 40;
 imLowNoiseGaussian = addGaussianNoise(im,sigma);
+imwrite(cast(imLowNoiseGaussian,'uint8'),'imLowNoiseGaussian.tiff');
 showImage(imLowNoiseGaussian);
 %% pre2 cleaning noisy S&P
 close all;
@@ -83,7 +61,7 @@ showImage(imLowNoiseSP);
 mypause;
 %4
 fprintf('clean low noise S&P with mean ...\n');
-cleanedLowNoiseSP_mean = cleanImageMean(imLowNoiseSP,3,2);
+cleanedLowNoiseSP_mean = cleanImageMean(imLowNoiseSP,3,10);
 imwrite(cast(cleanedLowNoiseSP_mean,'uint8'),'cleanedLowNoiseSP_mean.tiff');
 showImage(cleanedLowNoiseSP_mean);
 mypause;
@@ -139,7 +117,7 @@ showImage(cleanedLowNoiseGaussian_median);
 mypause;
 %12
 fprintf('clean low noise gaussian with bilateral filtering ...\n');
-cleanedLowNoiseGaussian_bifi = bilateralFilt(imLowNoiseGaussian,3,2,150);
+cleanedLowNoiseGaussian_bifi = bilateralFilt(imLowNoiseGaussian,4,2,200);
 imwrite(cast(cleanedLowNoiseGaussian_bifi,'uint8'),'cleanedLowNoiseGaussian_bifi.tiff');
 showImage(cleanedLowNoiseGaussian_bifi);
 %% pre3

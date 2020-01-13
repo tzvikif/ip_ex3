@@ -1,3 +1,23 @@
+%{
+This function applies Bilateral Filtering to the given image.
+Bilateral filtering replaces each pixel with a weighted average of its neighbors where
+the weights are determined according to the spatial and photometric (intensity) distances.
+
+Inputs:
+im - grayscale image (array of values in [0..255])
+radius – the radius of the neighborhood (neighborhood is square).
+stdSpatial – the std of the Gaussian function used for the spatial weight.
+stdIntensity – the std of the Gaussian function used for the intensity weight.
+
+Output:
+cleanIm - grayscale image (array of values in [0..255])  - the filtered image.
+
+ Method:    Per pixel, determine the local mask based on spatial and photometric weights.
+            Normalize the mask appropriately (image average should remain approx the same).
+            Scan the rows and cols of the image, but per each pixel use matrix ops (no loops).
+            Set the boundary pixels (pixels where the neighborhood extends
+            beyond the bounds of the image) to zero. Do not use matlab function bfilter.
+%}
 function cleanIm = bilateralFilt (im,radius,stdSpatial,stdIntensity)
     imRowSize = size(im,2);
     imColSize = size(im,1);
@@ -11,7 +31,6 @@ function cleanIm = bilateralFilt (im,radius,stdSpatial,stdIntensity)
         end
     end
     sW = sW/sum(sW,'all');    % preserve mean
-    %pW = zeros(2*radius+1,2*radius+1);
     for x=1+radius:imRowSize+radius
         for y=1+radius:imColSize+radius
             centerColor = bigIm(x,y);
@@ -25,5 +44,4 @@ function cleanIm = bilateralFilt (im,radius,stdSpatial,stdIntensity)
             cleanIm(x-radius,y-radius) = I;
         end
     end
-    %cleanIm = cleanIm(radius+1:end,radius+1:end);
 end
