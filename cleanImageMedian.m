@@ -12,17 +12,24 @@ Denoises image using median filtering.
             No need to compute at pixels where the neighborhood extends
             beyond the bounds of the image. Set these pixels to 0 so that cleanIm is same size as im.
 %}
-function cleanIm = cleanImageMedian (im, radius)
+function cleanIm = cleanImageMedian (im, varargin)
+    if nargin == 2
+      radiusRow = varargin{1};
+      radiusCol = radiusRow;
+    else
+        radiusRow = varargin{1};
+        radiusCol = varargin{2};
+    end
+    
     imRowSize = size(im,1);
     imColSize = size(im,2);
-    bigIm = zeros(imRowSize+2*radius,imColSize+2*radius);
-    %bigIm(1+radius:imColSize+radius,1+radius:imRowSize+radius) = im;
-    bigIm(1+radius:imRowSize+radius,1+radius:imColSize+radius) = im;
+    bigIm = zeros(imRowSize+2*radiusRow,imColSize+2*radiusCol);
+    bigIm(1+radiusRow:imRowSize+radiusRow,1+radiusCol:imColSize+radiusCol) = im;
     cleanIm = zeros(imRowSize,imColSize);
-    for r=1+radius:imRowSize+radius
-        for c=1+radius:imColSize+radius
-            mask = bigIm(r-radius:r+radius,c-radius:c+radius);
-            cleanIm(r-radius,c-radius) = median(mask,'all');
+    for r=1+radiusRow:imRowSize+radiusRow
+        for c=1+radiusCol:imColSize+radiusCol
+            mask = bigIm(r-radiusRow:r+radiusRow,c-radiusCol:c+radiusCol);
+            cleanIm(r-radiusRow,c-radiusCol) = median(mask,'all');
         end
     end
 end
